@@ -6,9 +6,11 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from "@/contexts/ThemeContext";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "@/components/layout/Navbar";
 import FloatingChatButton from "@/components/layout/FloatingChatButton";
 import Footer from "@/components/layout/Footer";
+import PageTransition from "@/components/layout/PageTransition";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Projects from "./pages/Projects";
@@ -40,12 +42,33 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }
 
   return (
-    <>
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       <Navbar />
-      {children}
+      <main className="pt-28 pb-16 px-4 md:px-8 max-w-7xl mx-auto">
+        {children}
+      </main>
       <Footer />
       <FloatingChatButton />
-    </>
+    </div>
+  );
+};
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+        <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+        <Route path="/projects" element={<PageTransition><Projects /></PageTransition>} />
+        <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+        <Route path="/resume" element={<PageTransition><Resume /></PageTransition>} />
+        <Route path="/chat" element={<PageTransition><Chat /></PageTransition>} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+      </Routes>
+    </AnimatePresence>
   );
 };
 
@@ -59,16 +82,7 @@ const App = () => (
           <BrowserRouter>
             <ScrollToTop />
             <Layout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/resume" element={<Resume />} />
-                <Route path="/chat" element={<Chat />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <AnimatedRoutes />
             </Layout>
           </BrowserRouter>
         </TooltipProvider>

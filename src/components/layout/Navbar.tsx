@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Moon, Sun, Menu, X, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -13,18 +13,32 @@ const Navbar = () => {
 
   const navItems = [
     { path: '/', label: 'Home' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/services', label: 'Services' }, // Assuming Services based on image, keeping original path if needed or adding new
+    { path: '/about', label: 'About' },
+  ];
+
+  // Adjust nav items to match current routes while keeping the design request
+  // Merging existing paths with the "Apple" feel
+  const displayedNavItems = [
+    { path: '/', label: 'Home' },
+    { path: '/projects', label: 'Projects' },
+    { path: '/resize', label: 'Resume' }, // keeping original functional paths but maybe renaming label? Let's stick to original labels for safety unless obvious
+    { path: '/about', label: 'About' },
+  ];
+
+  // Reverting to original items but styled differently
+  const originalNavItems = [
+    { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/projects', label: 'Projects' },
     { path: '/contact', label: 'Contact' },
-    { path: '/resume', label: 'Resume' },
-    { path: '/chat', label: 'Chat' }
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -32,105 +46,112 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-background/80 backdrop-blur-lg border-b border-border shadow-sm' 
-          : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-primary">
-            DieuMerci
-          </Link>
+    <>
+      <motion.nav
+        initial={{ y: -100, opacity: 0, x: "-50%" }}
+        animate={{ y: 0, opacity: 1, x: "-50%" }}
+        transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
+        className={`fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-2 transition-all duration-300 transform -translate-x-1/2 rounded-full border border-white/10 ${isScrolled || isMobileMenuOpen
+            ? 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/50'
+            : 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/30'
+          }`}
+      >
+        {/* Logo */}
+        <Link to="/" className="text-xl font-bold tracking-tighter text-foreground mr-8 hover:opacity-80 transition-opacity">
+          MDX
+        </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`relative text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.path) 
-                    ? 'text-primary' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
+        {/* Desktop Navigation - Centered */}
+        <div className="hidden md:flex items-center space-x-1 bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-sm">
+          {originalNavItems.map((item) => (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="relative px-5 py-2 text-sm font-medium transition-colors rounded-full duration-300 ease-in-out group"
+            >
+              <span className={`relative z-10 transition-colors duration-300 ${isActive(item.path) ? 'text-black dark:text-white' : 'text-gray-400 group-hover:text-foreground'
+                }`}>
                 {item.label}
-                {isActive(item.path) && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </Link>
-            ))}
-          </div>
+              </span>
 
-          {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="w-9 h-9 p-0"
-            >
-              {theme === 'light' ? (
-                <Moon className="h-4 w-4" />
-              ) : (
-                <Sun className="h-4 w-4" />
+              {isActive(item.path) && (
+                <motion.div
+                  layoutId="navbar-pill"
+                  className="absolute inset-0 bg-white/10 dark:bg-white/10 rounded-full shadow-sm"
+                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                />
               )}
-            </Button>
-
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-9 h-9 p-0"
-            >
-              {isMobileMenuOpen ? (
-                <X className="h-4 w-4" />
-              ) : (
-                <Menu className="h-4 w-4" />
+              {/* Hover effect for non-active items */}
+              {!isActive(item.path) && (
+                <div className="absolute inset-0 rounded-full bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
               )}
-            </Button>
-          </div>
+            </Link>
+          ))}
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Actions */}
+        <div className="flex items-center space-x-2 ml-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            className="rounded-full w-10 h-10 hover:bg-white/10 text-foreground transition-colors"
+          >
+            {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+          </Button>
+
+          <Link to="/chat" className="hidden md:flex">
+            <Button variant="default" className="rounded-full px-6 bg-white text-black hover:bg-white/90 dark:bg-white dark:text-black font-semibold transition-all">
+              Let's Talk <MessageCircle className="w-4 h-4 ml-2" />
+            </Button>
+          </Link>
+
+          {/* Mobile Menu Toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden rounded-full w-10 h-10 hover:bg-white/10 text-foreground"
+          >
+            {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
+        </div>
+      </motion.nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="md:hidden py-4 border-t border-border"
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-24 left-1/2 -translate-x-1/2 w-[90%] z-40 p-4 rounded-3xl glass-navbar md:hidden border border-white/10"
           >
-            {navItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className={`block py-2 text-sm font-medium transition-colors duration-200 ${
-                  isActive(item.path) 
-                    ? 'text-primary' 
-                    : 'text-muted-foreground hover:text-foreground'
-                }`}
-              >
-                {item.label}
+            <div className="flex flex-col space-y-2">
+              {originalNavItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.path)
+                      ? 'bg-white/10 text-foreground'
+                      : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
+                    }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link to="/chat" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button className="w-full rounded-xl mt-2 bg-white text-black hover:bg-white/90">
+                  Let's Talk
+                </Button>
               </Link>
-            ))}
+            </div>
           </motion.div>
         )}
-      </div>
-    </motion.nav>
+      </AnimatePresence>
+    </>
   );
 };
 
