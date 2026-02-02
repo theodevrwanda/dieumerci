@@ -101,10 +101,19 @@ const Home = () => {
               >
                 <div className="relative w-full max-w-md mx-auto">
                   <div className="absolute inset-0 bg-gradient-to-r from-primary to-primary/60 rounded-2xl blur-2xl opacity-20"></div>
-                  <img
+                  <motion.img
                     src={profileHero}
                     alt="Niyonsenga DieuMerci"
-                    className="relative z-10 w-full h-auto rounded-2xl shadow-2xl"
+                    animate={{ rotate: [0, 5, 0, -5, 0] }}
+                    transition={{
+                      rotate: {
+                        repeat: Infinity,
+                        duration: 6,
+                        ease: "easeInOut"
+                      }
+                    }}
+                    whileHover={{ rotate: 0, scale: 1.05 }}
+                    className="relative z-10 w-full h-auto rounded-2xl shadow-2xl grayscale hover:grayscale-0 transition-filter duration-500 cursor-pointer"
                   />
                 </div>
               </motion.div>
