@@ -67,34 +67,6 @@ const Projects = () => {
     }
   ];
 
-  const toggleFilter = (category: string) => {
-    if (category === 'All') {
-      setActiveFilters(['All']);
-      return;
-    }
-
-    let newFilters = activeFilters.includes('All') ? [] : [...activeFilters];
-
-    if (newFilters.includes(category)) {
-      newFilters = newFilters.filter(c => c !== category);
-    } else {
-      newFilters.push(category);
-    }
-
-    if (newFilters.length === 0) {
-      setActiveFilters(['All']);
-    } else {
-      setActiveFilters(newFilters);
-    }
-  };
-
-  const filteredProjects = activeFilters.includes('All')
-    ? projects
-    : projects.filter(project => {
-      if (activeFilters.includes('Released') && project.status === 'Released') return true;
-      return activeFilters.includes(project.category);
-    });
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -133,32 +105,7 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-12 bg-secondary/30">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
-            <div className="flex items-center gap-2 text-muted-foreground mb-4">
-              <Filter className="h-4 w-4" />
-              <span className="text-sm font-medium">Filter by category:</span>
-            </div>
-            {categories.map((category) => (
-              <Button
-                key={category}
-                variant={activeFilters.includes(category) ? "default" : "outline"}
-                onClick={() => toggleFilter(category)}
-                className="mb-2 transition-all duration-300"
-              >
-                {category}
-              </Button>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      {/* Filter Section Removed */}
 
       {/* Projects Grid */}
       <section className="py-20">
@@ -170,7 +117,7 @@ const Projects = () => {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
-            {filteredProjects.map((project, index) => (
+            {projects.map((project, index) => (
               <motion.div key={index} variants={itemVariants}>
                 <Card className="overflow-hidden group hover:shadow-lg transition-all duration-300 h-full">
                   <div className="relative">
@@ -218,17 +165,7 @@ const Projects = () => {
             ))}
           </motion.div>
 
-          {filteredProjects.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="text-center py-20"
-            >
-              <p className="text-muted-foreground text-lg">
-                No projects found in this category.
-              </p>
-            </motion.div>
-          )}
+          {/* No Empty Project Block Needed */}
         </div>
       </section>
 
