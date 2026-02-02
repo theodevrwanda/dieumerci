@@ -52,7 +52,7 @@ For collaborations, inquiries, or technical support, reach out to **theodevrwand
 
 1. **Clone the repository:**
    ```sh
-   git clone <repository-url>
+   git clonehttps://github.com/theodevrwanda/dieumerci.git
    ```
 
 2. **Install dependencies:**
