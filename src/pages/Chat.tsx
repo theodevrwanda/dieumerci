@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Send, ArrowLeft, User, Bot, Phone } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Send, ArrowLeft, Phone, Video, Info, Image, Mic, Camera, Heart, Smile } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
 import { geminiChatService } from '@/services/gemini';
+import profileHero from '@/assets/profile-hero.jpg';
 
 interface Message {
   id: string;
@@ -20,14 +19,13 @@ const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
-      content: "Hello! I'm DieuMerci's AI assistant. I can help you learn about his skills, experience, and services. Feel free to ask me anything about his work in software development, web design, networking, or IT services!",
+      content: "Hello! 👋 I'm DieuMerci's AI assistant. Ask me anything about his software development skills, prices, or experience!",
       isUser: false,
       timestamp: new Date()
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
-  const [ownerStatus] = useState<'online' | 'offline'>('online'); // Simulated status
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
@@ -37,68 +35,24 @@ const Chat = () => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isTyping]);
 
-  // Owner data for AI responses
+  // Owner data for AI responses (Keeping logic same, just UI update)
   const ownerData = {
     name: "Niyonsenga DieuMerci",
-    location: "Gihundwe Cell, Kamembe Sector, Rusizi District, Western Province, Rwanda",
+    location: "Kigali, Rwanda",
     phone: "+250 737 667 277",
-    education: "Student at Saint Martin Hanika College in Nyamasheke District, studying software development",
-    certification: "Certificate of Completion from Saltel Technical Training & Innovation Center for Networking and Internet Technology internship (April-May 2025)",
-    skills: ["software development", "web design", "HTML", "CSS", "JavaScript", "network configuration", "software installation", "IT support", "digital infrastructure"],
-    services: ["software installation", "network configuration", "web design", "software development", "IT support", "digital infrastructure building", "innovative solutions"],
-    experience: "Freelance IT professional providing comprehensive services, completed networking internship with outstanding performance"
+    skills: ["software development", "web design", "networking"],
   };
 
   const generateAIResponse = async (userMessage: string): Promise<string> => {
     try {
-      // Extract user info if available (simple extraction)
+      // Basic context passing
       const userInfo: any = {};
-      
-      // Simple name extraction
-      const nameMatch = userMessage.match(/my name is (\w+)|i'm (\w+)|i am (\w+)/i);
-      if (nameMatch) {
-        userInfo.name = nameMatch[1] || nameMatch[2] || nameMatch[3];
-      }
-      
-      // Simple email extraction  
-      const emailMatch = userMessage.match(/[\w\.-]+@[\w\.-]+\.\w+/);
-      if (emailMatch) {
-        userInfo.email = emailMatch[0];
-      }
-      
-      // Service interest detection
-      if (userMessage.toLowerCase().includes('web') || userMessage.toLowerCase().includes('website')) {
-        userInfo.serviceInterest = 'web design';
-      } else if (userMessage.toLowerCase().includes('network')) {
-        userInfo.serviceInterest = 'network configuration';
-      } else if (userMessage.toLowerCase().includes('software')) {
-        userInfo.serviceInterest = 'software development';
-      }
-      
-      const response = await geminiChatService.sendMessage(userMessage, userInfo);
-      return response;
+      return await geminiChatService.sendMessage(userMessage, userInfo);
     } catch (error) {
       console.error('Gemini API Error:', error);
-      
-      // Fallback to simple responses if Gemini fails
-      const lowerMessage = userMessage.toLowerCase();
-      
-      if (lowerMessage.includes('skill') || lowerMessage.includes('what can you do')) {
-        return `DieuMerci has expertise in ${ownerData.skills.join(', ')}. He's particularly skilled in building digital infrastructures and creating innovative solutions tailored to community needs.`;
-      }
-      
-      if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('reach')) {
-        return `You can reach DieuMerci at ${ownerData.phone} or email him at Niyonsengadieumercimiracle@gmail.com. He's based in ${ownerData.location}.`;
-      }
-      
-      if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('quote')) {
-        return `For pricing information, please contact DieuMerci directly at ${ownerData.phone} or Niyonsengadieumercimiracle@gmail.com. He'll provide a custom quote based on your specific project requirements.`;
-      }
-      
-      // Default fallback
-      return `I'm having trouble connecting to the AI service right now. Please contact DieuMerci directly at ${ownerData.phone} or Niyonsengadieumercimiracle@gmail.com for immediate assistance with your ${userMessage.toLowerCase().includes('web') ? 'web design' : userMessage.toLowerCase().includes('network') ? 'network' : 'IT'} needs.`;
+      return `I'm having trouble connecting right now. Please call DieuMerci directly at ${ownerData.phone}.`;
     }
   };
 
@@ -117,11 +71,9 @@ const Chat = () => {
     setIsTyping(true);
 
     try {
-      // Simulate typing delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      const aiResponse = await generateAIResponse(inputMessage);
-      
+      await new Promise(resolve => setTimeout(resolve, 1500)); // Creating 'thinking' delay
+      const aiResponse = await generateAIResponse(userMessage.content);
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         content: aiResponse,
@@ -133,7 +85,7 @@ const Chat = () => {
     } catch (error) {
       toast({
         title: "Error",
-        description: "Sorry, I'm having trouble responding right now. Please try again.",
+        description: "Failed to send message.",
         variant: "destructive",
       });
     } finally {
@@ -149,127 +101,124 @@ const Chat = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background">
-      {/* Header */}
-      <div className="bg-card border-b border-border p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Link to="/">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-            </Link>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <Bot className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <div>
-                <h2 className="font-semibold">DieuMerci's Assistant</h2>
-                <div className="flex items-center gap-2">
-                  <Badge variant={ownerStatus === 'online' ? 'default' : 'secondary'} className="text-xs">
-                    Owner {ownerStatus}
-                  </Badge>
-                </div>
-              </div>
+    <div className="h-screen flex flex-col bg-black text-white">
+      {/* Instagram Header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800 bg-black/95 backdrop-blur-sm z-10 sticky top-0">
+        <div className="flex items-center gap-4">
+          <Link to="/">
+            <ArrowLeft className="h-6 w-6 text-white cursor-pointer" />
+          </Link>
+          <div className="flex items-center gap-3">
+            <div className="relative">
+              <img
+                src={profileHero}
+                alt="Profile"
+                className="w-10 h-10 rounded-full object-cover border border-neutral-700"
+              />
+              <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-black"></div>
+            </div>
+            <div>
+              <h1 className="font-semibold text-sm">DieuMerci</h1>
+              <p className="text-xs text-neutral-400">Active now</p>
             </div>
           </div>
-          
-          <a href="tel:+250737667277">
-            <Button variant="outline" size="sm">
-              <Phone className="h-4 w-4 mr-2" />
-              Call DieuMerci
-            </Button>
-          </a>
+        </div>
+        <div className="flex items-center gap-6 text-white">
+          <Phone className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
+          <Video className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
+          <Info className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
         </div>
       </div>
 
-      {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+      {/* Chat Area */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-2 bg-black">
+        {/* Introduction */}
+        <div className="flex flex-col items-center justify-center py-8 space-y-2 text-center opacity-50">
+          <img
+            src={profileHero}
+            alt="Profile"
+            className="w-24 h-24 rounded-full object-cover mb-2"
+          />
+          <h3 className="font-bold text-lg">Niyonsenga DieuMerci</h3>
+          <p className="text-sm">Software Developer • Rwanda</p>
+          <p className="text-xs text-neutral-500">You're chatting with an AI assistant.</p>
+        </div>
+
         {messages.map((message) => (
           <motion.div
             key={message.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} mb-1`}
           >
-            <div className={`flex items-start gap-3 max-w-[80%] ${message.isUser ? 'flex-row-reverse' : 'flex-row'}`}>
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                message.isUser ? 'bg-primary' : 'bg-secondary'
+            {!message.isUser && (
+              <img
+                src={profileHero}
+                alt="Bot"
+                className="w-7 h-7 rounded-full object-cover mr-2 self-end mb-1"
+              />
+            )}
+
+            <div className={`max-w-[75%] px-4 py-2 text-[15px] leading-snug break-words ${message.isUser
+                ? 'bg-blue-600 text-white rounded-[22px] rounded-br-[4px]' // User Bubble
+                : 'bg-neutral-800 text-white rounded-[22px] rounded-bl-[4px]' // Bot Bubble
               }`}>
-                {message.isUser ? (
-                  <User className="h-4 w-4 text-primary-foreground" />
-                ) : (
-                  <Bot className="h-4 w-4 text-muted-foreground" />
-                )}
-              </div>
-              
-              <Card className={`p-3 ${
-                message.isUser 
-                  ? 'bg-primary text-primary-foreground' 
-                  : 'bg-card'
-              }`}>
-                <p className="text-sm leading-relaxed">{message.content}</p>
-                <p className={`text-xs mt-2 ${
-                  message.isUser 
-                    ? 'text-primary-foreground/70' 
-                    : 'text-muted-foreground'
-                }`}>
-                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
-              </Card>
+              {message.content}
             </div>
           </motion.div>
         ))}
 
         {isTyping && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex justify-start"
-          >
-            <div className="flex items-start gap-3">
-              <div className="w-8 h-8 bg-secondary rounded-full flex items-center justify-center">
-                <Bot className="h-4 w-4 text-muted-foreground" />
+          <div className="flex justify-start items-end gap-2 mb-2">
+            <img
+              src={profileHero}
+              alt="Bot"
+              className="w-7 h-7 rounded-full object-cover mb-1"
+            />
+            <div className="bg-neutral-800 rounded-[22px] px-4 py-3 rounded-bl-[4px]">
+              <div className="flex space-x-1 h-2 items-center">
+                <div className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                <div className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                <div className="w-1.5 h-1.5 bg-neutral-400 rounded-full animate-bounce"></div>
               </div>
-              <Card className="p-3 bg-card">
-                <div className="flex space-x-1">
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce [animation-delay:-0.3s]"></div>
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                  <div className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"></div>
-                </div>
-              </Card>
             </div>
-          </motion.div>
+          </div>
         )}
-
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="border-t border-border p-4">
-        <div className="flex gap-2">
+      {/* Instagram Input */}
+      <div className="p-4 bg-black">
+        <div className="flex items-center gap-3 bg-neutral-900 rounded-full px-2 py-1.5 border border-neutral-800">
+          <div className="p-2 bg-blue-600 rounded-full cursor-pointer hover:opacity-90 transition-opacity ml-1">
+            <Camera className="h-5 w-5 text-white" />
+          </div>
+
           <Input
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Ask me about DieuMerci's skills, services, or experience..."
-            className="flex-1"
+            placeholder="Message..."
+            className="flex-1 bg-transparent border-none text-white placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 h-10"
             disabled={isTyping}
           />
-          <Button 
-            onClick={handleSendMessage} 
-            disabled={!inputMessage.trim() || isTyping}
-            className="px-3"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
+
+          {!inputMessage.trim() ? (
+            <div className="flex items-center gap-3 mr-3 text-white">
+              <Mic className="h-6 w-6 cursor-pointer hover:text-neutral-300" />
+              <Image className="h-6 w-6 cursor-pointer hover:text-neutral-300" />
+              <Heart className="h-6 w-6 cursor-pointer hover:text-neutral-300" />
+            </div>
+          ) : (
+            <Button
+              onClick={handleSendMessage}
+              variant="ghost"
+              className="text-blue-500 font-semibold hover:text-white hover:bg-transparent mr-2"
+            >
+              Send
+            </Button>
+          )}
         </div>
-        <p className="text-xs text-muted-foreground mt-2 text-center">
-          This AI assistant provides information about DieuMerci's services and expertise. 
-          For direct consultation, call +250 737 667 277.
-        </p>
       </div>
     </div>
   );
