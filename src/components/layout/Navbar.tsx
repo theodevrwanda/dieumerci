@@ -43,8 +43,12 @@ const Navbar = () => {
           }`}
       >
         {/* Logo */}
-        <Link to="/" className="mr-8 hover:opacity-80 transition-opacity">
-          <img src={theme === 'dark' ? logo : logoBlack} alt="NDM Logo" className="h-6 w-auto" />
+        <Link to="/" className="mr-8 hover:opacity-80 transition-opacity flex items-center">
+          <img
+            src={theme === 'dark' ? logo : logoBlack}
+            alt="NDM Logo"
+            className="h-8 w-auto min-w-[100px] object-contain"
+          />
         </Link>
 
         {/* Desktop Navigation - Centered */}
