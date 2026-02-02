@@ -279,7 +279,7 @@ const Home = () => {
                   whileHover={{ scale: 1.1, y: -5 }}
                   className="group w-40"
                 >
-                  <Card className="p-6 text-center hover:bg-primary/5 hover:border-primary/20 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-3 card-shimmer overflow-hidden relative">
+                  <Card className="p-6 text-center hover:bg-primary/5 hover:border-primary/20 hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center gap-3">
                     <div className="mb-2 p-3 bg-secondary rounded-full group-hover:bg-primary/10 transition-colors">
                       {skill.icon}
                     </div>
