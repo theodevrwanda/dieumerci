@@ -124,8 +124,12 @@ const Chat = () => {
           </div>
         </div>
         <div className="flex items-center gap-6 text-white">
-          <Phone className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
-          <Video className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
+          <a href="https://wa.me/250737667277" target="_blank" rel="noopener noreferrer">
+            <Phone className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
+          </a>
+          <a href="https://wa.me/250737667277" target="_blank" rel="noopener noreferrer">
+            <Video className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
+          </a>
           <Info className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
         </div>
       </div>
@@ -160,8 +164,8 @@ const Chat = () => {
             )}
 
             <div className={`max-w-[75%] px-4 py-2 text-[15px] leading-snug break-words ${message.isUser
-                ? 'bg-blue-600 text-white rounded-[22px] rounded-br-[4px]' // User Bubble
-                : 'bg-neutral-800 text-white rounded-[22px] rounded-bl-[4px]' // Bot Bubble
+              ? 'bg-blue-600 text-white rounded-[22px] rounded-br-[4px]' // User Bubble
+              : 'bg-neutral-800 text-white rounded-[22px] rounded-bl-[4px]' // Bot Bubble
               }`}>
               {message.content}
             </div>
