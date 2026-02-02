@@ -15,25 +15,9 @@ const Navbar = () => {
 
   const navItems = [
     { path: '/', label: 'Home' },
-    { path: '/projects', label: 'Projects' },
-    { path: '/services', label: 'Services' }, // Assuming Services based on image, keeping original path if needed or adding new
-    { path: '/about', label: 'About' },
-  ];
-
-  // Adjust nav items to match current routes while keeping the design request
-  // Merging existing paths with the "Apple" feel
-  const displayedNavItems = [
-    { path: '/', label: 'Home' },
-    { path: '/projects', label: 'Projects' },
-    { path: '/resize', label: 'Resume' }, // keeping original functional paths but maybe renaming label? Let's stick to original labels for safety unless obvious
-    { path: '/about', label: 'About' },
-  ];
-
-  // Reverting to original items but styled differently
-  const originalNavItems = [
-    { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/projects', label: 'Projects' },
+    { path: '/resume', label: 'Resume' },
     { path: '/contact', label: 'Contact' },
   ];
 
@@ -60,12 +44,12 @@ const Navbar = () => {
       >
         {/* Logo */}
         <Link to="/" className="mr-8 hover:opacity-80 transition-opacity">
-          <img src={theme === 'dark' ? logo : logoBlack} alt="MDX Logo" className="h-6 w-auto" />
+          <img src={theme === 'dark' ? logo : logoBlack} alt="NDM Logo" className="h-6 w-auto" />
         </Link>
 
         {/* Desktop Navigation - Centered */}
         <div className="hidden md:flex items-center space-x-1 bg-white/5 p-1 rounded-full border border-white/5 backdrop-blur-sm">
-          {originalNavItems.map((item) => (
+          {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
@@ -131,7 +115,7 @@ const Navbar = () => {
             className="fixed top-24 left-1/2 -translate-x-1/2 w-[90%] z-40 p-4 rounded-3xl glass-navbar md:hidden border border-white/10"
           >
             <div className="flex flex-col space-y-2">
-              {originalNavItems.map((item) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}

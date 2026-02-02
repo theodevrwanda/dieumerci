@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Filter } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,7 +21,7 @@ const Projects = () => {
       title: "Network Infrastructure Setup",
       description: "Complete network configuration for small business with 50+ devices",
       category: "Networking",
-      image: "https://images.unsplash.com/photo-1544197150-b99a580bbcbf?w=800&q=80",
+      image: "https://media.geeksforgeeks.org/wp-content/uploads/20220817182651/NetworkInfrastructure1.png",
       technologies: ["Networking", "Router Config", "Security"],
       status: "Completed"
     },
@@ -47,7 +47,7 @@ const Projects = () => {
       title: "Campus Network Design",
       description: "Network architecture design and implementation for educational institution",
       category: "Networking",
-      image: "https://images.unsplash.com/photo-1558494949-ef2a278891f6?w=800&q=80",
+      image: "https://cdn.shopify.com/s/files/1/0810/5138/6158/files/campusmap_480x480.jpg?v=1698233366",
       technologies: ["Network Design", "Infrastructure"],
       status: "Completed"
     },
@@ -101,7 +101,6 @@ const Projects = () => {
         </div>
       </section>
 
-      {/* Filter Section Removed */}
 
       {/* Projects Grid */}
       <section className="py-20">
@@ -161,7 +160,6 @@ const Projects = () => {
             ))}
           </motion.div>
 
-          {/* No Empty Project Block Needed */}
         </div>
       </section>
 
