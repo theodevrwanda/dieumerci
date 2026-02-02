@@ -5,16 +5,13 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
-import techWorkspace from '@/assets/tech-workspace.jpg';
-import rwandaLandscape from '@/assets/rwanda-landscape.jpg';
-
 const Projects = () => {
   const projects = [
     {
       title: "E-Commerce Platform",
       description: "Modern responsive e-commerce website built with HTML, CSS, and JavaScript",
       category: "Websites",
-      image: techWorkspace,
+      image: "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&q=80",
       technologies: ["HTML", "CSS", "JavaScript"],
       status: "Released",
       github: "#",
@@ -24,7 +21,7 @@ const Projects = () => {
       title: "Network Infrastructure Setup",
       description: "Complete network configuration for small business with 50+ devices",
       category: "Networking",
-      image: rwandaLandscape,
+      image: "https://images.unsplash.com/photo-1544197150-b99a580bbcbf?w=800&q=80",
       technologies: ["Networking", "Router Config", "Security"],
       status: "Completed"
     },
@@ -32,7 +29,7 @@ const Projects = () => {
       title: "Inventory Management System",
       description: "Custom software solution for inventory tracking and management",
       category: "Software",
-      image: techWorkspace,
+      image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=800&q=80",
       technologies: ["Software Development", "Database"],
       status: "In Development"
     },
@@ -40,7 +37,7 @@ const Projects = () => {
       title: "Portfolio Website",
       description: "Professional portfolio website with modern design and animations",
       category: "Websites",
-      image: rwandaLandscape,
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
       technologies: ["HTML", "CSS", "JavaScript"],
       status: "Released",
       github: "#",
@@ -50,7 +47,7 @@ const Projects = () => {
       title: "Campus Network Design",
       description: "Network architecture design and implementation for educational institution",
       category: "Networking",
-      image: rwandaLandscape,
+      image: "https://images.unsplash.com/photo-1558494949-ef2a278891f6?w=800&q=80",
       technologies: ["Network Design", "Infrastructure"],
       status: "Completed"
     },
@@ -58,7 +55,7 @@ const Projects = () => {
       title: "Task Management App",
       description: "Web-based task management application for team collaboration",
       category: "Software",
-      image: techWorkspace,
+      image: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=800&q=80",
       technologies: ["Web Development", "JavaScript"],
       status: "Released",
       github: "#",
