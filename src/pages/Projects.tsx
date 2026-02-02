@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 const Projects = () => {
-  const [activeFilter, setActiveFilter] = useState('All');
+  const [activeFilters, setActiveFilters] = useState<string[]>(['All']);
 
   const categories = ['All', 'Websites', 'Networking', 'Software', 'Released'];
 
@@ -67,9 +67,33 @@ const Projects = () => {
     }
   ];
 
-  const filteredProjects = activeFilter === 'All' 
-    ? projects 
-    : projects.filter(project => project.category === activeFilter);
+  const toggleFilter = (category: string) => {
+    if (category === 'All') {
+      setActiveFilters(['All']);
+      return;
+    }
+
+    let newFilters = activeFilters.includes('All') ? [] : [...activeFilters];
+
+    if (newFilters.includes(category)) {
+      newFilters = newFilters.filter(c => c !== category);
+    } else {
+      newFilters.push(category);
+    }
+
+    if (newFilters.length === 0) {
+      setActiveFilters(['All']);
+    } else {
+      setActiveFilters(newFilters);
+    }
+  };
+
+  const filteredProjects = activeFilters.includes('All')
+    ? projects
+    : projects.filter(project => {
+      if (activeFilters.includes('Released') && project.status === 'Released') return true;
+      return activeFilters.includes(project.category);
+    });
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -102,7 +126,7 @@ const Projects = () => {
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">My Projects</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A showcase of my work in web design, software development, networking solutions, 
+              A showcase of my work in web design, software development, networking solutions,
               and innovative technology implementations.
             </p>
           </motion.div>
@@ -125,9 +149,9 @@ const Projects = () => {
             {categories.map((category) => (
               <Button
                 key={category}
-                variant={activeFilter === category ? "default" : "outline"}
-                onClick={() => setActiveFilter(category)}
-                className="mb-2"
+                variant={activeFilters.includes(category) ? "default" : "outline"}
+                onClick={() => toggleFilter(category)}
+                className="mb-2 transition-all duration-300"
               >
                 {category}
               </Button>
@@ -161,11 +185,11 @@ const Projects = () => {
                       </Badge>
                     </div>
                   </div>
-                  
+
                   <div className="p-6">
                     <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                     <p className="text-muted-foreground mb-4 text-sm">{project.description}</p>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-4">
                       {project.technologies.map((tech, techIndex) => (
                         <Badge key={techIndex} variant="outline" className="text-xs">
@@ -173,7 +197,7 @@ const Projects = () => {
                         </Badge>
                       ))}
                     </div>
-                    
+
                     <div className="flex gap-2">
                       {project.github && (
                         <Button size="sm" variant="outline" className="flex-1">
@@ -221,7 +245,7 @@ const Projects = () => {
               Ready to Start Your Project?
             </h2>
             <p className="text-lg text-muted-foreground mb-8">
-              Let's collaborate to bring your technology ideas to life with innovative solutions 
+              Let's collaborate to bring your technology ideas to life with innovative solutions
               tailored to your specific needs.
             </p>
             <Button size="lg" asChild>
