@@ -28,7 +28,7 @@ export class GeminiChatService {
   private ownerData = {
     name: "Niyonsenga DieuMerci",
     location: "Gihundwe Cell, Kamembe Sector, Rusizi District, Western Province, Rwanda",
-    phone: "+250 737 667 277",
+    phone: "+250 782 663 447",
     email: "Niyonsengadieumercimiracle@gmail.com",
     education: "Student at Saint Martin Hanika College in Nyamasheke District, studying software development",
     certification: "Certificate of Completion from Saltel Technical Training & Innovation Center for Networking and Internet Technology internship (April-May 2025)",
@@ -37,7 +37,7 @@ export class GeminiChatService {
     experience: "Freelance IT professional providing comprehensive services, completed networking internship with outstanding performance",
     pricing: {
       "web design": "$300-800",
-      "software development": "$500-2000", 
+      "software development": "$500-2000",
       "network configuration": "$200-500",
       "IT support": "$50-100/hour"
     }
@@ -130,7 +130,7 @@ Respond as DieuMerci's assistant, helping the client with their inquiry.`;
       return response;
     } catch (error) {
       console.error('Gemini API Error:', error);
-      throw new Error('Sorry, I\'m having trouble responding right now. Please try again or contact DieuMerci directly at +250 737 667 277.');
+      throw new Error('Sorry, I\'m having trouble responding right now. Please try again or contact DieuMerci directly at +250 782 663 447.');
     }
   }
 

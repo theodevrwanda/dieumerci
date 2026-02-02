@@ -62,12 +62,12 @@ const Contact = () => {
     {
       icon: <Phone className="h-6 w-6" />,
       title: "Phone",
-      content: "+250 737 667 277",
-      action: "tel:+250737667277"
+      content: "+250 782 663 447",
+      action: "tel:+250782663447"
     },
     {
       icon: <MapPin className="h-6 w-6" />,
-      title: "Location", 
+      title: "Location",
       content: "Gihundwe Cell, Kamembe Sector\nRusizi District, Western Province\nRwanda"
     },
     {
@@ -109,7 +109,7 @@ const Contact = () => {
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">Get In Touch</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Ready to collaborate on your next project? I'm here to help bring your 
+              Ready to collaborate on your next project? I'm here to help bring your
               technology ideas to life. Let's discuss how we can work together.
             </p>
           </motion.div>
@@ -131,7 +131,7 @@ const Contact = () => {
               <div>
                 <h2 className="text-3xl font-bold mb-6">Contact Information</h2>
                 <p className="text-lg text-muted-foreground mb-8">
-                  Feel free to reach out through any of the following channels. I'm always 
+                  Feel free to reach out through any of the following channels. I'm always
                   excited to discuss new opportunities and innovative projects.
                 </p>
               </div>
@@ -146,7 +146,7 @@ const Contact = () => {
                       <div className="flex-1">
                         <h3 className="font-semibold mb-1">{info.title}</h3>
                         {info.action ? (
-                          <a 
+                          <a
                             href={info.action}
                             className="text-muted-foreground hover:text-primary transition-colors"
                           >
@@ -230,9 +230,9 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <Button 
-                    type="submit" 
-                    size="lg" 
+                  <Button
+                    type="submit"
+                    size="lg"
                     className="w-full group"
                     disabled={isSubmitting}
                   >
@@ -249,7 +249,7 @@ const Contact = () => {
 
                 <div className="mt-6 p-4 bg-secondary/50 rounded-lg">
                   <p className="text-sm text-muted-foreground">
-                    <strong>Note:</strong> For immediate responses, please call directly at +250 737 667 277. 
+                    <strong>Note:</strong> For immediate responses, please call directly at +250 782 663 447.
                     I typically respond to messages within 24 hours during business days.
                   </p>
                 </div>

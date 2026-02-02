@@ -44,7 +44,7 @@ const Resume = () => {
           >
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">My Resume</h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-              A comprehensive overview of my education, experience, and achievements 
+              A comprehensive overview of my education, experience, and achievements
               in the technology and software development field.
             </p>
             <Button size="lg" className="group">
@@ -73,10 +73,10 @@ const Resume = () => {
                   Professional Summary
                 </h2>
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  Dedicated web designer and software developer with comprehensive IT expertise, 
-                  based in Rwanda's Western Province. Skilled in software installation, network 
-                  configuration, and creating innovative technology solutions. Currently pursuing 
-                  advanced software development education while building practical experience 
+                  Dedicated web designer and software developer with comprehensive IT expertise,
+                  based in Rwanda's Western Province. Skilled in software installation, network
+                  configuration, and creating innovative technology solutions. Currently pursuing
+                  advanced software development education while building practical experience
                   through professional internships and hands-on projects.
                 </p>
               </Card>
@@ -89,7 +89,7 @@ const Resume = () => {
                   <Briefcase className="h-6 w-6 text-primary" />
                   Experience
                 </h2>
-                
+
                 <div className="space-y-6">
                   <div className="border-l-2 border-primary/20 pl-6 relative">
                     <div className="absolute -left-2 top-0 w-4 h-4 bg-primary rounded-full"></div>
@@ -105,8 +105,8 @@ const Resume = () => {
                     </p>
                     <div className="text-muted-foreground space-y-2">
                       <p>
-                        Completed intensive internship program in Networking and Internet Technology, 
-                        earning Certificate of Completion for outstanding performance and practical 
+                        Completed intensive internship program in Networking and Internet Technology,
+                        earning Certificate of Completion for outstanding performance and practical
                         knowledge demonstration.
                       </p>
                       <ul className="list-disc list-inside space-y-1 text-sm ml-4">
@@ -132,7 +132,7 @@ const Resume = () => {
                     </p>
                     <div className="text-muted-foreground space-y-2">
                       <p>
-                        Providing comprehensive IT services including software installation, 
+                        Providing comprehensive IT services including software installation,
                         web design, and technical support to local community and businesses.
                       </p>
                       <ul className="list-disc list-inside space-y-1 text-sm ml-4">
@@ -169,8 +169,8 @@ const Resume = () => {
                       Saint Martin Hanika College, Nyamasheke District
                     </p>
                     <p className="text-muted-foreground">
-                      Currently enhancing abilities in software development, diving deep into 
-                      modern programming methodologies, software engineering principles, and 
+                      Currently enhancing abilities in software development, diving deep into
+                      modern programming methodologies, software engineering principles, and
                       emerging technologies in the rapidly evolving tech landscape.
                     </p>
                   </div>
@@ -205,8 +205,8 @@ const Resume = () => {
 
                       <div className="p-4 bg-secondary/50 rounded-lg">
                         <p className="text-sm text-muted-foreground">
-                          This certification highlights exceptional practical knowledge in building 
-                          and maintaining digital infrastructures, demonstrating technical expertise 
+                          This certification highlights exceptional practical knowledge in building
+                          and maintaining digital infrastructures, demonstrating technical expertise
                           and professional competency in networking technologies.
                         </p>
                       </div>
@@ -248,7 +248,7 @@ const Resume = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button asChild>
-                      <a href="tel:+250737667277">Call: +250 737 667 277</a>
+                      <a href="tel:+250782663447">Call: +250 782 663 447</a>
                     </Button>
                     <Button variant="outline" asChild>
                       <a href="/contact">Send Message</a>

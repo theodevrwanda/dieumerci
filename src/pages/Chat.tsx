@@ -41,7 +41,7 @@ const Chat = () => {
   const ownerData = {
     name: "Niyonsenga DieuMerci",
     location: "Kigali, Rwanda",
-    phone: "+250 737 667 277",
+    phone: "+250 782 663 447",
     skills: ["software development", "web design", "networking"],
   };
 
@@ -124,10 +124,10 @@ const Chat = () => {
           </div>
         </div>
         <div className="flex items-center gap-6 text-white">
-          <a href="https://wa.me/250737667277" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/250782663447" target="_blank" rel="noopener noreferrer">
             <Phone className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
           </a>
-          <a href="https://wa.me/250737667277" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/250782663447" target="_blank" rel="noopener noreferrer">
             <Video className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />
           </a>
           <Info className="h-6 w-6 cursor-pointer hover:text-neutral-300 transition-colors" />

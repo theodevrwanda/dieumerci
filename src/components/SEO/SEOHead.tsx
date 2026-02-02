@@ -30,19 +30,19 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       "addressRegion": "Rusizi District, Western Province",
       "addressCountry": "Rwanda"
     },
-    "telephone": "+250737667277",
+    "telephone": "+250782663447",
     "email": "Niyonsengadieumercimiracle@gmail.com",
     "url": url,
     "image": image,
     "description": description,
     "knowsAbout": [
       "Software Development",
-      "Web Design", 
+      "Web Design",
       "Network Configuration",
       "IT Support",
       "Digital Infrastructure",
       "HTML",
-      "CSS", 
+      "CSS",
       "JavaScript"
     ],
     "alumniOf": {
@@ -64,7 +64,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       "serviceType": [
         "Software Development",
         "Web Design",
-        "Network Configuration", 
+        "Network Configuration",
         "Software Installation",
         "IT Support",
         "Digital Infrastructure Building"
@@ -111,7 +111,7 @@ const SEOHead: React.FC<SEOHeadProps> = ({
       <meta name="apple-mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
       <meta name="format-detection" content="telephone=yes" />
-      
+
       {/* Geo Tags */}
       <meta name="geo.region" content="RW" />
       <meta name="geo.placename" content="Rusizi District, Western Province, Rwanda" />
