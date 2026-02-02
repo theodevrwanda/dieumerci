@@ -1,0 +1,10 @@
+<svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- N -->
+  <path d="M15 32V8L35 32V8" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- D -->
+  <path d="M50 8V32H65C75 32 75 8 65 8H50" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- M -->
+  <path d="M90 32V8L100 22L110 8V32" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

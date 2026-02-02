@@ -5,6 +5,7 @@ import { Moon, Sun, Menu, X, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/contexts/ThemeContext';
 import logo from '@/assets/logo.svg';
+import logoBlack from '@/assets/logo-black.svg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,14 +53,14 @@ const Navbar = () => {
         initial={{ y: -100, opacity: 0, x: "-50%" }}
         animate={{ y: 0, opacity: 1, x: "-50%" }}
         transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
-        className={`fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-2 transition-all duration-300 transform -translate-x-1/2 rounded-full border border-white/10 ${isScrolled || isMobileMenuOpen
-          ? 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/50'
-          : 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/30'
+        className={`fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-2 transition-all duration-300 transform -translate-x-1/2 rounded-full border border-black/5 dark:border-white/10 ${isScrolled || isMobileMenuOpen
+          ? 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-white/80 dark:bg-black/50 shadow-sm'
+          : 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-white/50 dark:bg-black/30'
           }`}
       >
         {/* Logo */}
         <Link to="/" className="mr-8 hover:opacity-80 transition-opacity">
-          <img src={logo} alt="MDX Logo" className="h-6 w-auto" />
+          <img src={theme === 'dark' ? logo : logoBlack} alt="MDX Logo" className="h-6 w-auto" />
         </Link>
 
         {/* Desktop Navigation - Centered */}
