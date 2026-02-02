@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Moon, Sun, Menu, X, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTheme } from '@/contexts/ThemeContext';
+import logo from '@/assets/logo.svg';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,13 +53,13 @@ const Navbar = () => {
         animate={{ y: 0, opacity: 1, x: "-50%" }}
         transition={{ duration: 0.8, type: "spring", stiffness: 100 }}
         className={`fixed top-6 left-1/2 z-50 flex items-center justify-between px-6 py-2 transition-all duration-300 transform -translate-x-1/2 rounded-full border border-white/10 ${isScrolled || isMobileMenuOpen
-            ? 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/50'
-            : 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/30'
+          ? 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/50'
+          : 'glass-navbar w-[90%] md:w-auto min-w-[320px] md:min-w-[600px] bg-black/30'
           }`}
       >
         {/* Logo */}
-        <Link to="/" className="text-xl font-bold tracking-tighter text-foreground mr-8 hover:opacity-80 transition-opacity">
-          MDX
+        <Link to="/" className="mr-8 hover:opacity-80 transition-opacity">
+          <img src={logo} alt="MDX Logo" className="h-6 w-auto" />
         </Link>
 
         {/* Desktop Navigation - Centered */}
@@ -135,8 +136,8 @@ const Navbar = () => {
                   to={item.path}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className={`px-4 py-3 rounded-xl text-sm font-medium transition-all ${isActive(item.path)
-                      ? 'bg-white/10 text-foreground'
-                      : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
+                    ? 'bg-white/10 text-foreground'
+                    : 'text-muted-foreground hover:bg-white/5 hover:text-foreground'
                     }`}
                 >
                   {item.label}
